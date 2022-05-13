@@ -20,18 +20,23 @@ minionsRouter.param('minionId', (req, res, next, id) => {
 
 minionsRouter.get('/', (req, res, next) => {
     res.send(db.getAllFromDatabase('minions'));
-})
+});
 
 minionsRouter.get('/:minionId', (req, res, next) => {
     res.send(req.minion);
-})
+});
+
+minionsRouter.post('/', (req, res, next) => {
+    const newMinion = db.addToDatabase('minions', req.body);
+    res.status(201).send(newMinion);
+});
 
 //Error Handler
 const errorHandler = (err, req, res, next) => {
     const status = err.status || 500;
     console.log(err.message);
     res.status(status).send(err.message);
-}
+};
 
 minionsRouter.use(errorHandler);
 
