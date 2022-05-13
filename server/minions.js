@@ -6,9 +6,10 @@ minionsRouter.param('minionId', (req, res, next, id) => {
     try {
         const foundMinion = db.getFromDatabaseById('minions', id);
         if (foundMinion === undefined) {
-            next(new Error('The minion you are looking for could not be found.'));
+            const err = new Error('The minion you are looking for could not be found.');
+            err.status = 404;
+            next(err);
         } else {
-            console.log('In else')
             req.minion = foundMinion;
             next();
         };
