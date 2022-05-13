@@ -1,5 +1,4 @@
 const express = require('express');
-const { is } = require('express/lib/request');
 const minionsRouter = express.Router();
 const db = require('./db');
 
