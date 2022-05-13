@@ -54,4 +54,6 @@ const errorHandler = (err, req, res, next) => {
     res.status(status).send(err.message);
 };
 
+ideasRouter.use(errorHandler);
+
 module.exports = ideasRouter;
