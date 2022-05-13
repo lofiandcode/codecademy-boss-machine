@@ -8,12 +8,13 @@ meetingsRouter.get('/', (req, res, next) => {
 
 meetingsRouter.post('/', (req, res, next) => {
     const newMeeting = db.createMeeting();
+    db.addToDatabase('meetings', newMeeting);
     res.status(201).send(newMeeting);
 });
 
 meetingsRouter.delete('/', (req, res, next) => {
     const isAllDeleted = db.deleteAllFromDatabase('meetings');
-    if (isAllDeleted === []) {
+    if (isAllDeleted) {
         res.status(204).send()
     } else {
         const err = new Error('The model type passed in this request does not exist in the database.');
