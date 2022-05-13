@@ -12,4 +12,8 @@ apiRouter.use('/minions', minionsRouter);
 const ideasRouter = require('./ideas');
 apiRouter.use('/ideas', ideasRouter);
 
+//Mount existing meetingsRouter at the '/meetings' path
+const meetingsRouter = require('./meetings');
+apiRouter.use('/meetings', meetingsRouter);
+
 module.exports = apiRouter;
