@@ -31,6 +31,11 @@ minionsRouter.post('/', (req, res, next) => {
     res.status(201).send(newMinion);
 });
 
+minionsRouter.put('/:minionId', (req, res, next) => {
+    const updatedMinion = db.updateInstanceInDatabase('minions', req.body);
+    res.send(updatedMinion);
+})
+
 //Error Handler
 const errorHandler = (err, req, res, next) => {
     const status = err.status || 500;
