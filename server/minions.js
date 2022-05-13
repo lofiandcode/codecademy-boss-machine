@@ -1,4 +1,5 @@
 const express = require('express');
+const { is } = require('express/lib/request');
 const minionsRouter = express.Router();
 const db = require('./db');
 
@@ -34,7 +35,18 @@ minionsRouter.post('/', (req, res, next) => {
 minionsRouter.put('/:minionId', (req, res, next) => {
     const updatedMinion = db.updateInstanceInDatabase('minions', req.body);
     res.send(updatedMinion);
-})
+});
+
+minionsRouter.delete('/:minionId', (req, res, next) => {
+    const isDeleted = db.deleteFromDatabasebyId('minions', req.minion.id);
+    if (isDeleted) {
+        res.status(204).send();
+    } else {
+        const err = new Error('The model type passed in this request does not exist in the database.');
+        err.status = 404;
+        next(err);
+    }
+});
 
 //Error Handler
 const errorHandler = (err, req, res, next) => {
